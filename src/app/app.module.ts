@@ -12,21 +12,24 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CurrencyConverterPipe } from './currency-converter.pipe';
 
 @NgModule({
+  // Declaraciones de componentes
   declarations: [
     AppComponent
   ],
+  // Importaciones de módulos y componentes
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HomeComponent,
-    CartComponent,
-    ProductListComponent,
-    ProductDetailComponent,
-    CheckoutComponent,
-    CurrencyConverterPipe
+    BrowserModule,        // Módulo necesario para aplicaciones web
+    AppRoutingModule,     // Módulo de rutas
+    ReactiveFormsModule,  // Módulo para formularios reactivos
+    HomeComponent,        // Componente de inicio
+    CartComponent,        // Componente del carrito
+    ProductListComponent, // Componente de lista de productos
+    ProductDetailComponent, // Componente de detalle de producto
+    CheckoutComponent,    // Componente de checkout
+    CurrencyConverterPipe // Pipe personalizado para conversión de moneda
   ],
   providers: [],
+  // Componente raíz de la aplicación
   bootstrap: [AppComponent]
 })
 export class AppModule { }

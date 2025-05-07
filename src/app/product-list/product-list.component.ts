@@ -4,6 +4,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService, Product } from '../product.service';
 import { CurrencyConverterPipe } from '../currency-converter.pipe';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -29,6 +30,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private fb: FormBuilder
   ) {
     this.editForm = this.fb.group({
@@ -40,7 +42,6 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.products = this.productService.getProducts();
     
-    // Suscribirse a los cambios del formulario para actualizar precios
     this.editForm.valueChanges.subscribe(values => {
       this.updatePrices(values.wheelType);
     });
@@ -67,10 +68,17 @@ export class ProductListComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.editForm.valid) {
+    if (this.editForm.valid && this.selectedProduct) {
       const formValues = this.editForm.value;
-      // Aquí puedes implementar la lógica para guardar los cambios
-      console.log('Cambios guardados:', formValues);
+      const updatedProduct: Product = {
+        ...this.selectedProduct,
+        price: this.totalPrice,
+        wheelType: formValues.wheelType,
+        color: formValues.color
+      };
+      
+      this.productService.updateProduct(this.selectedProduct.id, updatedProduct);
+      window.alert('¡Cambios guardados exitosamente!');
       this.closeEditForm();
     }
   }

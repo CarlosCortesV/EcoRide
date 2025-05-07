@@ -6,6 +6,8 @@ export interface Product {
   description: string;
   price: number;
   imageUrl: string;
+  wheelType?: string;
+  color?: string;
 }
 
 @Injectable({
@@ -26,5 +28,12 @@ export class ProductService {
 
   getProductById(id: number): Product | undefined {
     return this.products.find(product => product.id === id);
+  }
+
+  updateProduct(id: number, updatedProduct: Product): void {
+    const index = this.products.findIndex(product => product.id === id);
+    if (index !== -1) {
+      this.products[index] = { ...this.products[index], ...updatedProduct };
+    }
   }
 }

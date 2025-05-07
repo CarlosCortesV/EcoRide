@@ -1,23 +1,29 @@
+<!-- Grid de productos usando Bootstrap -->
 <div class="product-grid">
+  <!-- Iteración sobre productos usando *ngFor -->
   <div *ngFor="let product of products" class="product-card">
     <img [src]="product.imageUrl" alt="{{ product.name }}">
     <h2>{{ product.name }}</h2>
     <p>{{ product.description }}</p>
     <p>Precio: {{ product.price | currency:'USD' }}</p>
     <div class="button-group">
+      <!-- Botón de navegación usando RouterLink -->
       <a [routerLink]="['/products', product.id]" class="btn">Ver Detalles</a>
+      <!-- Botón para abrir modal de edición -->
       <button (click)="openEditForm(product)" class="btn edit-btn">Editar</button>
     </div>
   </div>
 </div>
 
-<!-- Modal de Edición -->
+<!-- Modal de Edición usando Bootstrap -->
 <div class="modal" *ngIf="showEditModal">
   <div class="modal-content">
     <h2>Personalizar {{ selectedProduct?.name }}</h2>
+    <!-- Formulario Reactivo: Vinculado con [formGroup] -->
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="wheelType">Tipo de Llantas:</label>
+        <!-- Select vinculado con formControlName -->
         <select id="wheelType" formControlName="wheelType" class="form-control">
           <option value="standard">Estándar</option>
           <option value="premium">Premium</option>
@@ -27,6 +33,7 @@
 
       <div class="form-group">
         <label for="color">Color:</label>
+        <!-- Input de color vinculado con formControlName -->
         <input type="color" id="color" formControlName="color" class="form-control">
       </div>
 
@@ -38,7 +45,9 @@
       </div>
 
       <div class="button-group">
+        <!-- Botón de envío del formulario -->
         <button type="submit" class="btn">Guardar Cambios</button>
+        <!-- Botón para cerrar el modal -->
         <button type="button" (click)="closeEditForm()" class="btn cancel-btn">Cancelar</button>
       </div>
     </form>
