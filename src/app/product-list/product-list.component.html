@@ -1,0 +1,46 @@
+<div class="product-grid">
+  <div *ngFor="let product of products" class="product-card">
+    <img [src]="product.imageUrl" alt="{{ product.name }}">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Precio: {{ product.price | currency:'USD' }}</p>
+    <div class="button-group">
+      <a [routerLink]="['/products', product.id]" class="btn">Ver Detalles</a>
+      <button (click)="openEditForm(product)" class="btn edit-btn">Editar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Edición -->
+<div class="modal" *ngIf="showEditModal">
+  <div class="modal-content">
+    <h2>Personalizar {{ selectedProduct?.name }}</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="wheelType">Tipo de Llantas:</label>
+        <select id="wheelType" formControlName="wheelType" class="form-control">
+          <option value="standard">Estándar</option>
+          <option value="premium">Premium</option>
+          <option value="racing">Carreras</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="color">Color:</label>
+        <input type="color" id="color" formControlName="color" class="form-control">
+      </div>
+
+      <div class="price-summary">
+        <h3>Resumen de Precios:</h3>
+        <p>Precio Base: {{ selectedProduct?.price | currency:'USD' }}</p>
+        <p>Llantas: {{ wheelPrice | currency:'USD' }}</p>
+        <p>Total: {{ totalPrice | currency:'USD' }}</p>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn">Guardar Cambios</button>
+        <button type="button" (click)="closeEditForm()" class="btn cancel-btn">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

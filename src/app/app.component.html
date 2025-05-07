@@ -1,0 +1,21 @@
+<!-- Menú vertical -->
+<div class="contenido-main">
+  <nav class="vertical-menu">
+    <div class="menu-header">
+      <h2>EcoRide Electriks</h2>
+    </div>
+    <ul>
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
+      <li><a routerLink="/products" routerLinkActive="active">Productos</a></li>
+      <li><a routerLink="/cart" routerLinkActive="active">Carrito</a></li>
+      <li><a routerLink="/checkout" routerLinkActive="active">Checkout</a></li>
+    </ul>
+  </nav>
+  
+  <main class="main">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+  
+</div>

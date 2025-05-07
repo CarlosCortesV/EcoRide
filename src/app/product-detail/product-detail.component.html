@@ -1,0 +1,11 @@
+<div *ngIf="product" class="product-detail">
+    <img [src]="product.imageUrl" alt="{{ product.name }}">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Precio: {{ product.price | currency:'USD' }}</p>
+    <button (click)="addToCart(product)" class="btn">Añadir al Carrito</button>
+  </div>
+
+<div class="back-button-container">
+  <button class="btn back-btn" routerLink="/">← Volver al Menú Principal</button>
+</div>

@@ -1,0 +1,78 @@
+/* Layout Principal */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+}
+
+/* Menú Vertical */
+.vertical-menu {
+  width: 250px;
+  height: 100vh;
+  background-color: #28a745;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.menu-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #218838;
+  background-color: #218838;
+}
+
+.menu-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.vertical-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vertical-menu li {
+  padding: 0;
+  border-bottom: 1px solid #218838;
+}
+
+.vertical-menu a {
+  display: block;
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.vertical-menu a:hover {
+  background-color: #218838;
+  padding-left: 25px;
+}
+
+.vertical-menu a.active {
+  background-color: #218838;
+  border-left: 4px solid #1e7e34;
+}
+
+/* Contenido Principal */
+.main {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
