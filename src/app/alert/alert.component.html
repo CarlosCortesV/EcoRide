@@ -1,6 +1,14 @@
+<!-- Template del Componente de Alerta
+     Este template define la estructura HTML de las alertas
+     Se muestra condicionalmente cuando hay una alerta activa -->
+
+<!-- Contenedor principal de la alerta -->
 <div *ngIf="alert" class="alert-container" [ngClass]="'alert-' + alert.type">
+  <!-- Contenido de la alerta -->
   <div class="alert-content">
+    <!-- Mensaje de la alerta -->
     <span class="alert-message">{{ alert.message }}</span>
+    <!-- Botón para cerrar la alerta -->
     <button type="button" class="alert-close" (click)="closeAlert()">×</button>
   </div>
 </div> 

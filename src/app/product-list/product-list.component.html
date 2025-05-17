@@ -1,5 +1,15 @@
-<!-- Grid de productos usando Bootstrap -->
-<div class="product-grid">
+<!-- Mensaje de carga -->
+<div *ngIf="loading" class="loading-container">
+  <p>Cargando productos...</p>
+</div>
+
+<!-- Mensaje de error -->
+<div *ngIf="error" class="error-container">
+  <p>{{ error }}</p>
+</div>
+
+<!-- Grid de productos -->
+<div *ngIf="!loading && !error" class="product-grid">
   <!-- Iteración sobre productos usando *ngFor -->
   <div *ngFor="let product of products" class="product-card">
     <img [src]="product.imageUrl" alt="{{ product.name }}">
@@ -15,7 +25,7 @@
   </div>
 </div>
 
-<!-- Modal de Edición usando Bootstrap -->
+<!-- Modal de Edición -->
 <div class="modal" *ngIf="showEditModal">
   <div class="modal-content">
     <h2>Personalizar {{ selectedProduct?.name }}</h2>
@@ -45,10 +55,8 @@
       </div>
 
       <div class="button-group">
-        <!-- Botón de envío del formulario -->
         <button type="submit" class="btn">Guardar Cambios</button>
-        <!-- Botón para cerrar el modal -->
-        <button type="button" (click)="closeEditForm()" class="btn cancel-btn">Cancelar</button>
+        <button type="button" class="btn cancel-btn" (click)="closeEditForm()">Cancelar</button>
       </div>
     </form>
   </div>

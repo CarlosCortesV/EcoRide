@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { AlertService } from './alert.service';
   // Importaciones de módulos y componentes
   imports: [
     BrowserModule,        // Módulo necesario para aplicaciones web
+    HttpClientModule,     // Módulo para realizar peticiones HTTP
     AppRoutingModule,     // Módulo de rutas
     ReactiveFormsModule,  // Módulo para formularios reactivos
     RouterModule,         // Módulo para enrutamiento

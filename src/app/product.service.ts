@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface Product {
   id: number;
@@ -14,26 +17,57 @@ export interface Product {
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[] = [
-    { id: 1, name: 'Patineta EcoRide 1', description: 'Descripción del producto 1', price: 299.99, imageUrl: 'assets/product1.webp' },
-    { id: 2, name: 'Patineta EcoRide 2', description: 'Descripción del producto 2', price: 399.99, imageUrl: 'assets/product2.png' },
-    { id: 3, name: 'Patineta EcoRide 3', description: 'Descripción del producto 3', price: 499.99, imageUrl: 'assets/product3.webp' }
-  ];
+  private apiUrl = 'http://localhost:3000/api/products';
+  private products: Product[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getProducts(): Product[] {
-    return this.products;
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl).pipe(
+      map(products => {
+        this.products = products;
+        return products;
+      }),
+      catchError(error => {
+        console.error('Error al obtener productos:', error);
+        return of([]);
+      })
+    );
   }
 
-  getProductById(id: number): Product | undefined {
-    return this.products.find(product => product.id === id);
+  getProductById(id: number): Observable<Product | undefined> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`).pipe(
+      catchError(error => {
+        console.error(`Error al obtener producto con id ${id}:`, error);
+        return of(undefined);
+      })
+    );
   }
 
-  updateProduct(id: number, updatedProduct: Product): void {
-    const index = this.products.findIndex(product => product.id === id);
-    if (index !== -1) {
-      this.products[index] = { ...this.products[index], ...updatedProduct };
-    }
+  updateProduct(id: number, updatedProduct: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, updatedProduct).pipe(
+      catchError(error => {
+        console.error(`Error al actualizar producto con id ${id}:`, error);
+        throw error;
+      })
+    );
+  }
+
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, product).pipe(
+      catchError(error => {
+        console.error('Error al crear producto:', error);
+        throw error;
+      })
+    );
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+      catchError(error => {
+        console.error(`Error al eliminar producto con id ${id}:`, error);
+        throw error;
+      })
+    );
   }
 }

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService, Product } from '../product.service';
-import { CurrencyConverterPipe } from '../currency-converter.pipe';
 import { CartService } from '../cart.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { CartService } from '../cart.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, CurrencyPipe, CurrencyConverterPipe]
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, CurrencyPipe]
 })
 export class ProductListComponent implements OnInit {
 
@@ -21,6 +20,8 @@ export class ProductListComponent implements OnInit {
   editForm: FormGroup;
   wheelPrice = 0;
   totalPrice = 0;
+  loading = false;
+  error = '';
 
   wheelPrices = {
     standard: 0,
@@ -40,7 +41,18 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
+    this.loading = true;
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products = products;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = 'Error al cargar los productos. Por favor, intenta de nuevo más tarde.';
+        console.error('Error fetching products:', error);
+        this.loading = false;
+      }
+    });
     
     this.editForm.valueChanges.subscribe(values => {
       this.updatePrices(values.wheelType);
@@ -51,10 +63,10 @@ export class ProductListComponent implements OnInit {
     this.selectedProduct = product;
     this.showEditModal = true;
     this.editForm.patchValue({
-      wheelType: 'standard',
-      color: '#000000'
+      wheelType: product.wheelType || 'standard',
+      color: product.color || '#000000'
     });
-    this.updatePrices('standard');
+    this.updatePrices(product.wheelType || 'standard');
   }
 
   closeEditForm() {
@@ -77,9 +89,21 @@ export class ProductListComponent implements OnInit {
         color: formValues.color
       };
       
-      this.productService.updateProduct(this.selectedProduct.id, updatedProduct);
-      window.alert('¡Cambios guardados exitosamente!');
-      this.closeEditForm();
+      this.productService.updateProduct(this.selectedProduct.id, updatedProduct).subscribe({
+        next: (response) => {
+          // Actualizar el producto en la lista local
+          const index = this.products.findIndex(p => p.id === this.selectedProduct?.id);
+          if (index !== -1) {
+            this.products[index] = response;
+          }
+          window.alert('¡Cambios guardados exitosamente!');
+          this.closeEditForm();
+        },
+        error: (error) => {
+          console.error('Error al actualizar el producto:', error);
+          window.alert('Error al guardar los cambios. Por favor, intenta de nuevo.');
+        }
+      });
     }
   }
 }

@@ -2,11 +2,16 @@
     <h2>Tu Carrito</h2>
     <div *ngIf="cartItems.length > 0; else emptyCart">
       <div *ngFor="let item of cartItems" class="cart-item">
-        <h3>{{ item.name }}</h3>
-        <p>Precio: {{ item.price | currency:'USD' }}</p> <!--pipes currency-->
+        <div class="item-details">
+          <h3>{{ item.name }}</h3>
+          <p>Precio: {{ item.price | currency:'USD' }}</p>
+        </div>
+        <button (click)="removeItem(item.id)" class="btn remove-btn">Eliminar</button>
       </div>
-      <button (click)="clearCart()" class="btn">Vaciar Carrito</button>
-      <a routerLink="/checkout" class="btn">Proceder al Pago</a>
+      <div class="cart-actions">
+        <button (click)="clearCart()" class="btn">Vaciar Carrito</button>
+        <a routerLink="/checkout" class="btn">Proceder al Pago</a>
+      </div>
     </div>
     <ng-template #emptyCart>
       <p>Tu carrito está vacío.</p>
