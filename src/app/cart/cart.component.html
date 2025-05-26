@@ -9,9 +9,9 @@
           <h3 class="item-title">{{ item.name }}</h3>
           <p class="item-price">Precio: {{ item.price | currency:'USD' }}</p>
           <div class="item-quantity">
-            <button class="quantity-btn">-</button>
-            <span class="quantity-input">1</span>
-            <button class="quantity-btn">+</button>
+            <button class="quantity-btn" (click)="removeOne(item)">-</button>
+            <span class="quantity-input">{{ item.quantity }}</span>
+            <button class="quantity-btn" (click)="addOne(item)">+</button>
           </div>
         </div>
         <button (click)="removeItem(item.id)" class="btn remove-btn">

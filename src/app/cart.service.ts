@@ -61,6 +61,16 @@ export class CartService {
     }
   }
 
+  // Elimina solo una unidad del producto (no todas)
+  removeOneFromCart(productId: number) {
+    const idx = this.items.findIndex(item => item.id === productId);
+    if (idx !== -1) {
+      const [removed] = this.items.splice(idx, 1);
+      this.saveItemsToStorage();
+      this.alertService.info(`Se eliminó una unidad de ${removed.name}`);
+    }
+  }
+
   clearCart() {
     this.items = [];
     this.saveItemsToStorage();

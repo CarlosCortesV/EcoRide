@@ -15,17 +15,23 @@ import { Product } from '../product.service';
 })
 export class CartComponent implements OnInit, OnDestroy {
   // Array que almacena los items del carrito
-  cartItems: Product[] = [];
+  cartItems: (Product & { quantity: number })[] = [];
   private subscription: Subscription;
 
   // Inyección del servicio del carrito
   constructor(private cartService: CartService) {
     this.subscription = this.cartService.getCartItemsObservable()
       .subscribe(items => {
-        this.cartItems = items.map(item => ({
-          ...item,
-          imageUrl: item.imageUrl || 'assets/default-product.png' // Imagen por defecto si no hay URL
-        }));
+        // Agrupar productos por id y contar cantidad
+        const grouped: { [id: number]: (Product & { quantity: number }) } = {};
+        for (const item of items) {
+          if (grouped[item.id]) {
+            grouped[item.id].quantity++;
+          } else {
+            grouped[item.id] = { ...item, quantity: 1 };
+          }
+        }
+        this.cartItems = Object.values(grouped);
       });
   }
 
@@ -48,5 +54,14 @@ export class CartComponent implements OnInit, OnDestroy {
   // Método para limpiar el carrito
   clearCart() {
     this.cartService.clearCart();
+  }
+
+  addOne(product: Product) {
+    this.cartService.addToCart(product);
+  }
+
+  removeOne(product: Product) {
+    // Elimina solo una unidad del producto
+    this.cartService.removeOneFromCart(product.id);
   }
 }
