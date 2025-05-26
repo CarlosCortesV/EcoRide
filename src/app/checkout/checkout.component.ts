@@ -59,6 +59,7 @@ export class CheckoutComponent implements OnInit {
 
   // Método para obtener el total del carrito
   getTotal(): number {
-    return this.cartService.getTotal();
+    // Usar el método que suma cantidades agrupadas
+    return this.cartService.getTotalGrouped();
   }
 }

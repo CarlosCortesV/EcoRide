@@ -78,6 +78,20 @@ export class CartService {
   }
 
   getTotal(): number {
+    // Sumar el precio de todos los productos, considerando cantidades
     return this.items.reduce((total, item) => total + item.price, 0);
+  }
+
+  // Nuevo método para obtener el total agrupando por id y sumando cantidades
+  getTotalGrouped(): number {
+    const grouped: { [id: number]: { price: number; quantity: number } } = {};
+    for (const item of this.items) {
+      if (grouped[item.id]) {
+        grouped[item.id].quantity++;
+      } else {
+        grouped[item.id] = { price: item.price, quantity: 1 };
+      }
+    }
+    return Object.values(grouped).reduce((total, prod) => total + prod.price * prod.quantity, 0);
   }
 }
