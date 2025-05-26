@@ -16,30 +16,27 @@ import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert.service';
 
 @NgModule({
-  // Declaraciones de componentes
   declarations: [
     AppComponent
   ],
-  // Importaciones de módulos y componentes
   imports: [
-    BrowserModule,        // Módulo necesario para aplicaciones web
-    HttpClientModule,     // Módulo para realizar peticiones HTTP
-    AppRoutingModule,     // Módulo de rutas
-    ReactiveFormsModule,  // Módulo para formularios reactivos
-    RouterModule,         // Módulo para enrutamiento
-    HomeComponent,        // Componente de inicio
-    CartComponent,        // Componente del carrito
-    ProductListComponent, // Componente de lista de productos
-    ProductDetailComponent, // Componente de detalle de producto
-    CheckoutComponent,    // Componente de checkout
-    CurrencyConverterPipe,  // Pipe personalizado para conversión de moneda
-    AlertComponent        // Componente de alerta
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    RouterModule,
+    HomeComponent,
+    CartComponent,
+    ProductListComponent,
+    ProductDetailComponent,
+    CheckoutComponent,
+    CurrencyConverterPipe,
+    AlertComponent
   ],
   providers: [
     provideClientHydration(),
     AlertService
   ],
-  // Componente raíz de la aplicación
   bootstrap: [AppComponent]
 })
 export class AppModule { }

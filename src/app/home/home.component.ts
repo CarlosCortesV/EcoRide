@@ -10,5 +10,7 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule]
 })
 export class HomeComponent {
-  // Lógica del componente si es necesaria
+  constructor() {
+    console.log('HomeComponent initialized');
+  }
 }

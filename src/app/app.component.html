@@ -1,6 +1,12 @@
-<!-- Menú vertical -->
-<div class="contenido-main">
-  <nav class="vertical-menu">
+<div class="app-container">
+  <!-- Botón para alternar el menú (visible en móvil o siempre si se desea) -->
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <!-- Icono de hamburguesa o flecha -->
+    <i class="fas fa-bars"></i> <!-- Ejemplo con Font Awesome -->
+  </button>
+
+  <!-- Menú Horizontal Superior -->
+  <nav class="top-menu">
     <div class="menu-header">
       <h2>EcoRide Electriks</h2>
     </div>
@@ -12,12 +18,12 @@
     </ul>
   </nav>
   
+  <!-- Contenido Principal -->
   <main class="main">
     <div class="content">
       <router-outlet></router-outlet>
     </div>
   </main>
-  
 </div>
 
 <app-alert></app-alert>
