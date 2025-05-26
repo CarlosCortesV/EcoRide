@@ -7,7 +7,7 @@
 }
 
 .product-card {
-  background: var(--neutral-50);
+  background: #fff;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
@@ -16,6 +16,7 @@
   flex-direction: column;
   text-decoration: none;
   color: inherit;
+  padding: 20px 18px 18px 18px;
 }
 
 .product-card:hover {
@@ -28,10 +29,13 @@
   height: 200px;
   object-fit: contain;
   border-bottom: 1px solid var(--neutral-200);
+  margin-bottom: 18px;
+  border-radius: 12px;
+  padding: 8px;
 }
 
 .product-content {
-  padding: var(--spacing-8);
+  padding: 0;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -39,32 +43,55 @@
 }
 
 .product-card h2 {
-  font-size: var(--text-xl);
+  font-size: 1.5rem;
+  text-align: center;
   font-weight: 700;
-  color: var(--neutral-800);
-  margin-bottom: var(--spacing-3);
+  color: #086e3b; /* Verde principal de la marca */
+  margin-bottom: 12px;
+  padding: 0 0 0 2px;
 }
 
 .product-card p {
   color: var(--neutral-600);
-  font-size: var(--text-sm);
-  margin-bottom: var(--spacing-4);
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 0 0 0 2px;
   flex-grow: 1;
   line-height: 1.6;
 }
-
-.product-price {
-  font-size: var(--text-xl);
+.precio-list{
   font-weight: 700;
-  color: var(--primary-700);
-  margin-bottom: var(--spacing-4);
+}
+.product-price {
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 900;
+  color: #065f46; /* Verde oscuro */
+  margin-bottom: 18px;
+  padding: 0 0 0 2px;
+  letter-spacing: 0.5px;
+  background: none;
+  border-radius: 0;
+  display: block;
+  text-shadow: none;
+  border: none;
+  box-shadow: none;
+  margin-top: 8px;
+}
+
+.product-price::before {
+  content: 'Precio: ';
+  font-weight: 900;
+  color: #065f46;
 }
 
 .button-group {
   display: flex;
   gap: var(--spacing-4);
   padding: var(--spacing-4) 0 0 0;
-  margin-top: var(--spacing-6);
+  margin-top: 18px;
+  padding: 0 2px;
 }
 
 .button-group .btn {
@@ -101,7 +128,7 @@
 }
 
 .button-group .cancel-btn {
-  background-color: var(--neutral-400);
+  background-color: #ffffff;
   color: var(--neutral-900);
   border: 1px solid var(--neutral-400);
 }
@@ -229,6 +256,16 @@
   width: 90%;
   max-width: 500px;
   box-shadow: var(--shadow-xl);
+  position: relative;
+}
+
+.modal-content h2 {
+  color: var(--primary-800); /* Verde oscuro de la marca */
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+  letter-spacing: -1px;
 }
 
 .form-group {
@@ -257,23 +294,45 @@
   box-shadow: 0 0 0 3px var(--primary-100);
 }
 
+.form-control[type="color"] {
+  width: 60px;
+  height: 40px;
+  border: 2px solid var(--primary-500);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e6f7ed 0%, #d1fae5 100%);
+  box-shadow: 0 2px 8px 0 rgba(16,185,129,0.10);
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  display: block;
+}
+.form-control[type="color"]:focus {
+  border: 2px solid var(--primary-700);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+
 .price-summary {
-  background-color: var(--neutral-100);
-  padding: var(--spacing-4);
-  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, #e6f7ed 0%, #d1fae5 100%);
+  border: 2px solid var(--primary-200);
+  box-shadow: 0 2px 8px 0 rgba(16,185,129,0.08);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
   margin: var(--spacing-6) 0;
 }
 
 .price-summary h3 {
-  margin-top: 0;
-  color: var(--neutral-800);
-  font-size: var(--text-lg);
+  color: var(--primary-700);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-2);
 }
 
 .price-summary p {
+  color: var(--primary-800);
+  font-size: 1.05rem;
+  font-weight: 600;
   margin: var(--spacing-1) 0;
-  color: var(--neutral-600);
-  font-size: var(--text-base);
 }
 
 /* Estilos para el botón de cerrar del modal */
@@ -295,10 +354,18 @@
   color: var(--neutral-800);
 }
 
-/* Estilos para el input de color */
-.form-control-color {
-  width: 100%;
-  height: var(--spacing-10);
-  padding: var(--spacing-2);
+/* Estilos para el botón de guardar en el modal */
+.button-group .btn[type="submit"],
+.button-group .btn:not(.cancel-btn) {
+  background: linear-gradient(90deg, #1db066 0%, #138a4e 100%);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 2px 8px 0 rgba(34,197,94,0.10);
+  transition: background 0.2s, transform 0.2s;
 }
-  
+.button-group .btn[type="submit"]:hover,
+.button-group .btn:not(.cancel-btn):hover {
+  background: linear-gradient(90deg, #138a4e 0%, #1db066 100%);
+  transform: translateY(-2px) scale(1.03);
+}

@@ -34,7 +34,7 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #c2e79a;
+  color: #ffffff;
   letter-spacing: 1px;
   text-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
@@ -68,13 +68,13 @@
 
 .top-menu ul li a:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #c2e79a;
+  color: #d8f0bf;
   border-bottom: 3px solid #c2e79a;
 }
 
 .top-menu ul li a.active {
   background: rgba(255, 255, 255, 0.2);
-  color: #c2e79a;
+  color: #d8f0bf;
   border-bottom: 3px solid #7dcc1d;
   font-weight: 700;
 }
@@ -82,7 +82,6 @@
 /* Contenido Principal */
 .main {
   flex: 1;
-  padding: 2rem;
   background-color: transparent; /* Hacer el fondo transparente para ver la imagen */
   width: 100%;
   position: relative; /* Necesario para posicionar el pseudo-elemento */
@@ -96,7 +95,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/fondo2.jpg'); /* La imagen de fondo */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
