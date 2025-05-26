@@ -1,0 +1,108 @@
+<!-- Contenedor principal del checkout -->
+<div class="checkout-container">
+  <!-- Mensaje de éxito -->
+  <div *ngIf="paymentSuccess" class="success-message">
+    <h2>¡Pago Exitoso!</h2>
+    <p>Gracias por tu compra. Recibirás un correo con los detalles de tu pedido.</p>
+    <button routerLink="/" class="btn">Volver al Inicio</button>
+  </div>
+
+  <!-- Formulario de pago -->
+  <div *ngIf="!paymentSuccess" class="checkout-form">
+    <h2>Información de Pago</h2>
+    
+    <!-- Formulario Reactivo -->
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+      <!-- Información Personal -->
+      <div class="form-section">
+        <h3>Información Personal</h3>
+        
+        <div class="form-group">
+          <label for="nombre">Nombre Completo:</label>
+          <input type="text" id="nombre" formControlName="nombre" class="form-control">
+          <div *ngIf="checkoutForm.get('nombre')?.errors?.['required'] && checkoutForm.get('nombre')?.touched" class="error-message">
+            El nombre es requerido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" formControlName="email" class="form-control">
+          <div *ngIf="checkoutForm.get('email')?.errors?.['email'] && checkoutForm.get('email')?.touched" class="error-message">
+            Ingrese un email válido
+          </div>
+        </div>
+      </div>
+
+      <!-- Dirección de Envío -->
+      <div class="form-section">
+        <h3>Dirección de Envío</h3>
+        
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" formControlName="direccion" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="ciudad">Ciudad:</label>
+          <input type="text" id="ciudad" formControlName="ciudad" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="codigoPostal">Código Postal:</label>
+          <input type="text" id="codigoPostal" formControlName="codigoPostal" class="form-control">
+          <div *ngIf="checkoutForm.get('codigoPostal')?.errors?.['pattern'] && checkoutForm.get('codigoPostal')?.touched" class="error-message">
+            Ingrese un código postal válido (5 dígitos)
+          </div>
+        </div>
+      </div>
+
+      <!-- Información de Pago -->
+      <div class="form-section">
+        <h3>Información de Pago</h3>
+        
+        <div class="form-group">
+          <label for="numeroTarjeta">Número de Tarjeta:</label>
+          <input type="text" id="numeroTarjeta" formControlName="numeroTarjeta" class="form-control" maxlength="16">
+          <div *ngIf="checkoutForm.get('numeroTarjeta')?.errors?.['pattern'] && checkoutForm.get('numeroTarjeta')?.touched" class="error-message">
+            Ingrese un número de tarjeta válido (16 dígitos)
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fechaVencimiento">Fecha de Vencimiento (MM/AA):</label>
+            <input type="text" id="fechaVencimiento" formControlName="fechaVencimiento" class="form-control" placeholder="MM/AA">
+            <div *ngIf="checkoutForm.get('fechaVencimiento')?.errors?.['pattern'] && checkoutForm.get('fechaVencimiento')?.touched" class="error-message">
+              Formato inválido (MM/AA)
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" formControlName="cvv" class="form-control" maxlength="3">
+            <div *ngIf="checkoutForm.get('cvv')?.errors?.['pattern'] && checkoutForm.get('cvv')?.touched" class="error-message">
+              CVV inválido (3 dígitos)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen de la Compra -->
+      <div class="order-summary">
+        <h3>Resumen de la Compra</h3>
+        <p>Total a Pagar: {{ getTotal() | currency:'USD' }}</p>
+      </div>
+
+      <!-- Botón de Envío -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid">
+          Realizar Pago
+        </button>
+        <button type="button" routerLink="/cart" class="btn btn-secondary">
+          Volver al Carrito
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,207 @@
+/* Estilos del Componente de Alerta
+   Este archivo contiene los estilos para las diferentes tipos de alertas
+   y sus animaciones */
+
+/* Estilos de las alertas */
+.alert-container {
+  position: fixed;
+  top: var(--spacing-6);
+  right: var(--spacing-6);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-width: 400px;
+  width: 100%;
+}
+
+.alert {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  animation: slideIn 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.alert::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.alert-success {
+  background: var(--success-50);
+  border: 1px solid var(--success-200);
+}
+
+.alert-success::before {
+  background: var(--success-500);
+}
+
+.alert-error {
+  background: var(--error-50);
+  border: 1px solid var(--error-200);
+}
+
+.alert-error::before {
+  background: var(--error-500);
+}
+
+.alert-warning {
+  background: var(--warning-50);
+  border: 1px solid var(--warning-200);
+}
+
+.alert-warning::before {
+  background: var(--warning-500);
+}
+
+.alert-info {
+  background: var(--info-50);
+  border: 1px solid var(--info-200);
+}
+
+.alert-info::before {
+  background: var(--info-500);
+}
+
+.alert-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.alert-success .alert-icon {
+  color: var(--success-600);
+}
+
+.alert-error .alert-icon {
+  color: var(--error-600);
+}
+
+.alert-warning .alert-icon {
+  color: var(--warning-600);
+}
+
+.alert-info .alert-icon {
+  color: var(--info-600);
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-weight: 600;
+  font-size: var(--text-base);
+  margin-bottom: var(--spacing-1);
+}
+
+.alert-success .alert-title {
+  color: var(--success-900);
+}
+
+.alert-error .alert-title {
+  color: var(--error-900);
+}
+
+.alert-warning .alert-title {
+  color: var(--warning-900);
+}
+
+.alert-info .alert-title {
+  color: var(--info-900);
+}
+
+.alert-message {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.alert-success .alert-message {
+  color: var(--success-700);
+}
+
+.alert-error .alert-message {
+  color: var(--error-700);
+}
+
+.alert-warning .alert-message {
+  color: var(--warning-700);
+}
+
+.alert-info .alert-message {
+  color: var(--info-700);
+}
+
+.alert-close {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-1);
+  cursor: pointer;
+  color: var(--neutral-500);
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.alert-close:hover {
+  color: var(--neutral-700);
+}
+
+.alert-success .alert-close:hover {
+  color: var(--success-700);
+}
+
+.alert-error .alert-close:hover {
+  color: var(--error-700);
+}
+
+.alert-warning .alert-close:hover {
+  color: var(--warning-700);
+}
+
+.alert-info .alert-close:hover {
+  color: var(--info-700);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.alert.closing {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .alert-container {
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    left: var(--spacing-4);
+    max-width: none;
+  }
+} 

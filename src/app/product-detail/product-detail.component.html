@@ -1,0 +1,22 @@
+<!-- Mensaje de carga -->
+<div *ngIf="loading" class="loading-container">
+  <p>Cargando producto...</p>
+</div>
+
+<!-- Mensaje de error -->
+<div *ngIf="error" class="error-container">
+  <p>{{ error }}</p>
+</div>
+
+<!-- Detalle del producto -->
+<div *ngIf="product && !loading && !error" class="product-detail">
+  <img [src]="product.imageUrl" alt="{{ product.name }}">
+  <h2>{{ product.name }}</h2>
+  <p>{{ product.description }}</p>
+  <p>Precio: {{ product.price | currency:'USD' }}</p>
+  <button (click)="addToCart(product)" class="btn">Añadir al Carrito</button>
+</div>
+
+<div class="back-button-container">
+  <button class="btn back-btn" routerLink="/products">← Volver a Productos</button>
+</div>

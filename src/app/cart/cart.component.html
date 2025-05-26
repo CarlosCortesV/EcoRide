@@ -1,0 +1,30 @@
+<div class="cart">
+    <h2>Tu Carrito</h2>
+    <div *ngIf="cartItems.length > 0; else emptyCart" class="cart-items">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <div class="item-image">
+          <img [src]="item.imageUrl" [alt]="item.name" (error)="item.imageUrl = 'assets/default-product.png'">
+        </div>
+        <div class="item-details">
+          <h3 class="item-title">{{ item.name }}</h3>
+          <p class="item-price">Precio: {{ item.price | currency:'USD' }}</p>
+          <div class="item-quantity">
+            <button class="quantity-btn">-</button>
+            <span class="quantity-input">1</span>
+            <button class="quantity-btn">+</button>
+          </div>
+        </div>
+        <button (click)="removeItem(item.id)" class="btn remove-btn">
+          <i class="fas fa-trash"></i>
+          Eliminar
+        </button>
+      </div>
+      <div class="cart-actions">
+        <button (click)="clearCart()" class="btn">Vaciar Carrito</button>
+        <a routerLink="/checkout" class="btn">Proceder al Pago</a>
+      </div>
+    </div>
+    <ng-template #emptyCart>
+      <p>Tu carrito está vacío.</p>
+    </ng-template>
+</div>

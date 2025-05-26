@@ -1,0 +1,192 @@
+/* Estilos del componente principal */
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* Layout Principal */
+.app-container { /* Contenedor principal sin flex-direction column */
+  display: flex; /* Usar flexbox para el layout general */
+  flex-direction: column; /* Apilar elementos verticalmente */
+  min-height: 100vh;
+}
+
+/* Menú Horizontal Superior */
+.top-menu {
+  width: 100%;
+  background: linear-gradient(90deg, #1db066 0%, #138a4e 100%); /* Gradiente horizontal */
+  color: white;
+  box-shadow: 0 2px 10px rgba(30, 60, 30, 0.1);
+  z-index: 1000;
+  padding: 0 2rem; /* Espaciado interno */
+  display: flex; /* Usar flexbox para alinear elementos del menú */
+  justify-content: space-between; /* Espacio entre el header y los enlaces */
+  align-items: center; /* Alinear verticalmente */
+  flex-shrink: 0; /* Evita que el menú se encoja */
+}
+
+.top-menu .menu-header {
+  padding: 1rem 0;
+  text-align: left;
+}
+
+.top-menu .menu-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #c2e79a;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.top-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.top-menu ul li {
+  padding: 0;
+}
+
+.top-menu ul li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1rem 1.5rem;
+  color: #e6f7ed;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.top-menu ul li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #c2e79a;
+  border-bottom: 3px solid #c2e79a;
+}
+
+.top-menu ul li a.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #c2e79a;
+  border-bottom: 3px solid #7dcc1d;
+  font-weight: 700;
+}
+
+/* Contenido Principal */
+.main {
+  flex: 1;
+  padding: 2rem;
+  background-color: transparent; /* Hacer el fondo transparente para ver la imagen */
+  width: 100%;
+  position: relative; /* Necesario para posicionar el pseudo-elemento */
+  overflow: hidden; /* Ocultar partes de la imagen si sobresalen */
+}
+
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/fondo2.jpg'); /* La imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(8px); /* Aplicar el desenfoque */
+  z-index: -1; /* Colocar detrás del contenido principal */
+  /* Opcional: añadir una superposición oscura para mejorar la legibilidad del texto */
+  /* background-color: rgba(0, 0, 0, 0.3); */
+}
+
+.main .content {
+  position: relative; /* Asegurar que el contenido esté sobre el pseudo-elemento */
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto; /* Centra el contenido dentro del main */
+}
+
+/* Eliminar la clase shifted si ya no se usa */
+/* .main.shifted { */
+  /* transform: translateX(280px); */
+/* } */
+
+/* Botón de menú - Ocultar por defecto para menú horizontal */
+.menu-toggle {
+  display: none; /* Ocultar por defecto en menú horizontal */
+  position: absolute; /* O fixed si lo prefieres */
+  top: 1rem;
+  right: 1rem; /* Posicionarlo en la derecha si es necesario para móvil */
+  z-index: 1001;
+  background: var(--primary-600);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle:hover {
+  background: var(--primary-700);
+  transform: scale(1.05);
+}
+
+/* Responsive para mostrar botón de menú en pantallas pequeñas */
+@media (max-width: 768px) {
+  .top-menu ul {
+    display: none; /* Ocultar la lista de enlaces por defecto en móvil */
+    flex-direction: column; /* Preparar para menú desplegable */
+    background: linear-gradient(135deg, #1db066 0%, #138a4e 100%); /* Fondo para menú desplegable */
+    position: absolute; /* Posicionar el menú desplegable */
+    top: 60px; /* Debajo del botón de menú */
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  .top-menu ul.open { /* Clase para mostrar el menú desplegable en móvil */
+    display: flex;
+  }
+
+  .top-menu a {
+    padding: 1rem 2rem; /* Ajustar padding para enlaces en menú desplegable */
+    border-bottom: none; /* Eliminar borde inferior */
+    border-left: 4px solid transparent; /* Borde izquierdo para enlaces en móvil */
+    border-radius: 0;
+    margin-right: 0;
+  }
+
+  .top-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #c2e79a;
+    border-left: 4px solid #c2e79a; /* Color del borde al pasar el ratón en móvil */
+  }
+
+  .top-menu a.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #c2e79a;
+    border-left: 4px solid #7dcc1d; /* Color del borde para activo en móvil */
+    font-weight: 700;
+  }
+
+  .menu-toggle {
+    display: flex; /* Mostrar el botón de menú en móvil */
+  }
+}
+
+/* Eliminar reglas responsive anteriores que ya no aplican */
+/* @media (max-width: 900px) { ... } */
+/* @media (max-width: 480px) { ... } */
