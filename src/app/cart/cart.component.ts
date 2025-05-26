@@ -22,7 +22,10 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(private cartService: CartService) {
     this.subscription = this.cartService.getCartItemsObservable()
       .subscribe(items => {
-        this.cartItems = items;
+        this.cartItems = items.map(item => ({
+          ...item,
+          imageUrl: item.imageUrl || 'assets/default-product.png' // Imagen por defecto si no hay URL
+        }));
       });
   }
 

@@ -10,7 +10,7 @@ import { CartService } from '../cart.service';
   styles: [`
 /* Estilos del detalle de producto */
 app-product-detail .product-detail {
-  background: var(--neutral-50); /* Fondo claro */
+  background: white; /* Fondo blanco */
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg); /* Sombra más pronunciada */
   overflow: hidden;
@@ -95,19 +95,23 @@ app-product-detail .quantity-selector {
 }
 
 app-product-detail .quantity-btn {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border: 2px solid var(--primary-500);
   background: transparent;
   color: var(--primary-600);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-xl);
+  border-radius: var(--radius-md);
+  font-size: var(--text-lg);
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 app-product-detail .quantity-btn:hover {
   background: var(--primary-50);
+  transform: translateY(-1px);
 }
 
 app-product-detail .quantity-input {
@@ -123,7 +127,9 @@ app-product-detail .quantity-input {
 app-product-detail .product-actions {
   display: flex;
   gap: var(--spacing-4);
-  margin-top: auto;
+  margin-top: var(--spacing-8); /* Aumentar margen superior */
+  padding-top: var(--spacing-6); /* Añadir padding superior */
+  border-top: 1px solid var(--neutral-200); /* Separador */
 }
 
 app-product-detail .btn-add-cart {
@@ -137,6 +143,10 @@ app-product-detail .btn-add-cart {
   font-size: var(--text-lg);
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
 }
 
 app-product-detail .btn-add-cart:hover {
@@ -153,6 +163,9 @@ app-product-detail .btn-wishlist {
   border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 app-product-detail .btn-wishlist:hover {
@@ -218,27 +231,27 @@ app-product-detail .back-button-container {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  padding: 0 var(--spacing-8); /* Añadir padding horizontal */
+  padding: var(--spacing-6) var(--spacing-8); /* Ajustar padding horizontal */
 }
 
 app-product-detail .back-btn {
-  background-color: var(--neutral-400);
-  color: var(--neutral-900);
+  background-color: var(--neutral-200); /* Fondo gris claro */
+  color: var(--neutral-700); /* Color de texto */
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
-  border: none; /* Eliminar borde */
-  padding: var(--spacing-3) var(--spacing-4); /* Ajustar padding */
-  border-radius: var(--radius-md); /* Bordes redondeados */
+  border: none;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none; /* Eliminar subrayado */
+  text-decoration: none;
   font-size: var(--text-base);
 }
 
 app-product-detail .back-btn:hover {
-  background-color: var(--neutral-500);
-  color: var(--neutral-50);
+  background-color: var(--neutral-300); /* Fondo gris un poco más oscuro */
+  color: var(--neutral-900); /* Color de texto más oscuro */
 }
 
 /* Mensajes de carga y error */
