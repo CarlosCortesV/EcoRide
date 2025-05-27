@@ -13,7 +13,6 @@ import { CartService } from '../cart.service';
   imports: [CommonModule, ReactiveFormsModule, RouterModule, CurrencyPipe]
 })
 export class ProductListComponent implements OnInit {
-
   products: Product[] = [];
   showEditModal = false;
   selectedProduct: Product | null = null;
@@ -41,6 +40,14 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadProducts();
+    
+    this.editForm.valueChanges.subscribe(values => {
+      this.updatePrices(values.wheelType);
+    });
+  }
+
+  loadProducts() {
     this.loading = true;
     this.productService.getProducts().subscribe({
       next: (products) => {
@@ -48,14 +55,10 @@ export class ProductListComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        this.error = 'Error al cargar los productos. Por favor, intenta de nuevo más tarde.';
-        console.error('Error fetching products:', error);
+        this.error = 'Error al cargar los productos';
         this.loading = false;
+        console.error('Error:', error);
       }
-    });
-    
-    this.editForm.valueChanges.subscribe(values => {
-      this.updatePrices(values.wheelType);
     });
   }
 

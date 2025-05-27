@@ -52,7 +52,7 @@ export class CartService {
     this.alertService.success(`${product.name} se ha movido al carrito`);
   }
 
-  removeFromCart(productId: number) {
+  removeFromCart(productId: string) {
     const productToRemove = this.items.find(item => item.id === productId);
     if (productToRemove) {
       this.items = this.items.filter(item => item.id !== productId);
@@ -61,8 +61,7 @@ export class CartService {
     }
   }
 
-  // Elimina solo una unidad del producto (no todas)
-  removeOneFromCart(productId: number) {
+  removeOneFromCart(productId: string) {
     const idx = this.items.findIndex(item => item.id === productId);
     if (idx !== -1) {
       const [removed] = this.items.splice(idx, 1);
@@ -78,13 +77,11 @@ export class CartService {
   }
 
   getTotal(): number {
-    // Sumar el precio de todos los productos, considerando cantidades
     return this.items.reduce((total, item) => total + item.price, 0);
   }
 
-  // Nuevo método para obtener el total agrupando por id y sumando cantidades
   getTotalGrouped(): number {
-    const grouped: { [id: number]: { price: number; quantity: number } } = {};
+    const grouped: { [key: string]: { price: number; quantity: number } } = {};
     for (const item of this.items) {
       if (grouped[item.id]) {
         grouped[item.id].quantity++;

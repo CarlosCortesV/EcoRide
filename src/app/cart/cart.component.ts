@@ -23,7 +23,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.subscription = this.cartService.getCartItemsObservable()
       .subscribe(items => {
         // Agrupar productos por id y contar cantidad
-        const grouped: { [id: number]: (Product & { quantity: number }) } = {};
+        const grouped: { [id: string]: (Product & { quantity: number }) } = {};
         for (const item of items) {
           if (grouped[item.id]) {
             grouped[item.id].quantity++;
@@ -47,7 +47,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   // Método para eliminar un producto del carrito
-  removeItem(productId: number) {
+  removeItem(productId: string) {
     this.cartService.removeFromCart(productId);
   }
 

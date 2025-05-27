@@ -10,13 +10,24 @@
 
 <!-- Detalle del producto -->
 <div *ngIf="product && !loading && !error" class="product-detail">
-  <img [src]="product.imageUrl" alt="{{ product.name }}">
-  <h2>{{ product.name }}</h2>
-  <p>{{ product.description }}</p>
-  <p>Precio: {{ product.price | currency:'USD' }}</p>
-  <button (click)="addToCart(product)" class="btn">Añadir al Carrito</button>
+  <div class="product-image-container">
+    <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+  </div>
+  <div class="product-info">
+    <h2 class="product-title">{{ product.name }}</h2>
+    <div class="product-price">${{ product.price | number:'1.2-2' }}</div>
+    <div class="product-description">{{ product.description }}</div>
+    <div class="product-actions">
+      <button (click)="addToCart(product)" class="btn-add-cart">
+        <span>🛒 Añadir al Carrito</span>
+      </button>
+      <button class="btn-wishlist" title="Agregar a favoritos">
+        <span>♡</span>
+      </button>
+    </div>
+  </div>
 </div>
 
 <div class="back-button-container">
-  <button class="btn back-btn" routerLink="/products">← Volver a Productos</button>
+  <button class="back-btn" routerLink="/products">← Volver a Productos</button>
 </div>

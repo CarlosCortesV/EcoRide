@@ -4,13 +4,15 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export interface Product {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;
   imageUrl: string;
-  wheelType?: string;
-  color?: string;
+  wheelType: 'standard' | 'premium' | 'racing';
+  color: string;
+  created_at: string;
+  updated_at: string;
 }
 
 @Injectable({
@@ -35,39 +37,25 @@ export class ProductService {
     );
   }
 
-  getProductById(id: number): Observable<Product | undefined> {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`).pipe(
-      catchError(error => {
-        console.error(`Error al obtener producto con id ${id}:`, error);
-        return of(undefined);
-      })
-    );
+  getProduct(id: string): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
-  updateProduct(id: number, updatedProduct: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/${id}`, updatedProduct).pipe(
-      catchError(error => {
-        console.error(`Error al actualizar producto con id ${id}:`, error);
-        throw error;
-      })
-    );
+  updateProduct(id: string, product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
   }
 
   createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.apiUrl, product).pipe(
-      catchError(error => {
-        console.error('Error al crear producto:', error);
-        throw error;
-      })
-    );
+    return this.http.post<Product>(this.apiUrl, product);
   }
 
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
-      catchError(error => {
-        console.error(`Error al eliminar producto con id ${id}:`, error);
-        throw error;
-      })
-    );
+  deleteProduct(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  uploadImage(file: File, fileName: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', file, fileName);
+    return this.http.post(`${this.apiUrl}/upload`, formData);
   }
 }

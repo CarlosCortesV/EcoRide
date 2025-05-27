@@ -10,13 +10,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
-  max-width: 400px;
+  max-width: 420px;
   width: 100%;
   pointer-events: none;
+  border-radius: 12px;
 }
 
 .alert {
-  padding: 1.2rem 2.2rem 1.2rem 1.6rem;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(34,197,94,0.13), 0 2px 12px 0 rgba(30,60,30,0.10);
   display: flex;
@@ -36,7 +37,6 @@
 
 .alert-success {
   background: linear-gradient(90deg, #e6f7ed 0%, #d1fae5 100%);
-  border-left: 6px solid var(--success-500);
 }
 
 .alert-success::before {
@@ -119,10 +119,11 @@
 
 .alert-message {
   font-size: 1.08rem;
+  border: 10px;
   font-weight: 600;
   color: var(--neutral-900);
   flex: 1;
-  padding-right: 1.2rem;
+  padding-left: 1.2rem;
   text-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
